@@ -390,11 +390,44 @@ textarea.form-control {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   :root {
-    --header-height: 68px;
+    --header-height: 60px;
+  }
+  .container {
+    padding-left: 14px;
+    padding-right: 14px;
   }
   .section {
-    padding-top: 48px;
-    padding-bottom: 48px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+  
+  /* Chatbot FAB on mobile: sleek circle, zero screen blocking */
+  .chatbot-fab {
+    width: 48px !important;
+    height: 48px !important;
+    padding: 0 !important;
+    justify-content: center !important;
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+  .chatbot-fab-text {
+    display: none !important;
+  }
+
+  /* Compact button sizing on mobile */
+  .btn-lg {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 400px) {
+  :root {
+    --header-height: 56px;
+  }
+  .btn-sm {
+    padding: 6px 10px;
+    font-size: 0.78rem;
   }
 }
 
@@ -407,3 +440,4 @@ textarea.form-control {
     scroll-behavior: auto !important;
   }
 }
+

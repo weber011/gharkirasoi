@@ -212,41 +212,41 @@ export const AIChatbot: React.FC = () => {
           onClick={() => setIsChatbotOpen(true)}
           style={{
             position: 'fixed',
-            bottom: '24px',
-            right: '24px',
+            bottom: '20px',
+            right: '20px',
             zIndex: 990,
             backgroundColor: '#171513',
             color: '#E9C66D',
             border: '2px solid #E9C66D',
             borderRadius: '9999px',
-            padding: '12px 20px',
             boxShadow: '0 8px 24px rgba(13, 12, 10, 0.25)',
             display: 'flex',
             alignItems: 'center',
-            gap: '10px',
             cursor: 'pointer',
             transition: 'transform 0.15s ease'
           }}
+          className="chatbot-fab"
           id="rasoi-assistant-trigger"
           aria-label="Open Rasoi AI Booking Assistant"
         >
           <div style={{
-            width: '28px',
-            height: '28px',
+            width: '32px',
+            height: '32px',
             backgroundColor: '#C94B42',
             borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#FFFFFF'
+            color: '#FFFFFF',
+            flexShrink: 0
           }}>
             <Bot size={18} />
           </div>
-          <div style={{ textAlign: 'left' }}>
-            <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#FFF8E9', lineHeight: 1.1 }}>
+          <div className="chatbot-fab-text" style={{ textAlign: 'left', marginLeft: '8px' }}>
+            <div style={{ fontSize: '0.84rem', fontWeight: 700, color: '#FFF8E9', lineHeight: 1.1 }}>
               Rasoi Assistant
             </div>
-            <div style={{ fontSize: '0.7rem', color: '#E9C66D' }}>
+            <div style={{ fontSize: '0.68rem', color: '#E9C66D' }}>
               Ask & Instant Quote
             </div>
           </div>

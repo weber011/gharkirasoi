@@ -32,14 +32,14 @@ export const HomePage: React.FC = () => {
       {/* 1. HERO SECTION (Using supplied hero-bg.jpeg) */}
       <section style={{
         position: 'relative',
-        minHeight: '620px',
+        minHeight: 'min(560px, 90vh)',
         display: 'flex',
         alignItems: 'center',
-        backgroundImage: `linear-gradient(to right, rgba(13, 12, 10, 0.92) 0%, rgba(13, 12, 10, 0.78) 55%, rgba(13, 12, 10, 0.45) 100%), url('/assets/hero-bg.jpeg')`,
+        backgroundImage: `linear-gradient(to right, rgba(13, 12, 10, 0.94) 0%, rgba(13, 12, 10, 0.82) 60%, rgba(13, 12, 10, 0.5) 100%), url('/assets/hero-bg.jpeg')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center right',
         color: '#FFFFFF',
-        padding: '80px 0'
+        padding: '56px 0'
       }}>
         <div className="container">
           <div style={{ maxWidth: '640px' }}>

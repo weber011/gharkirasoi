@@ -23,7 +23,7 @@ export const INITIAL_CHEFS: Chef[] = [
     id: 'chef-sunita-devi',
     name: 'Chef Sunita Devi',
     experienceYears: 8,
-    avatar: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=400&q=80',
+    avatar: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=400&q=80',
     specialties: ['Everyday Homestyle Cooking', 'Diet & Low-Oil Cooking', 'Jain Specialties', 'North Indian Thalis'],
     cuisines: ['North Indian', 'Jain', 'Rajasthani'],
     languages: ['Hindi'],
