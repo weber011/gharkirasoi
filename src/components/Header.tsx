@@ -1,0 +1,502 @@
+import React, { useState } from 'react';
+import { useApp } from '../context/AppContext';
+import { 
+  UtensilsCrossed, 
+  Menu as MenuIcon, 
+  X, 
+  MapPin, 
+  MessageCircle, 
+  User, 
+  ChevronDown 
+} from 'lucide-react';
+
+export const Header: React.FC = () => {
+  const { currentRoute, navigate } = useApp();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+
+  const isActive = (path: string) => {
+    if (path === '/' && currentRoute === '/') return true;
+    if (path !== '/' && currentRoute.startsWith(path)) return true;
+    return false;
+  };
+
+  const handleNav = (path: string) => {
+    navigate(path);
+    setMobileMenuOpen(false);
+    setServicesDropdownOpen(false);
+  };
+
+  return (
+    <header style={{
+      position: 'sticky',
+      top: 0,
+      zIndex: 900,
+      backgroundColor: '#FFFFFF',
+      borderBottom: '1px solid #E6E0D6',
+      boxShadow: '0 1px 3px rgba(13, 12, 10, 0.04)'
+    }}>
+      <div className="container" style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        height: 'var(--header-height)'
+      }}>
+        {/* Brand Logo */}
+        <div 
+          onClick={() => handleNav('/')}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+            cursor: 'pointer',
+            userSelect: 'none'
+          }}
+        >
+          <div style={{
+            width: '42px',
+            height: '42px',
+            backgroundColor: '#171513',
+            borderRadius: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#E9C66D',
+            border: '1px solid #2B2723'
+          }}>
+            <UtensilsCrossed size={22} />
+          </div>
+          <div>
+            <div style={{
+              fontFamily: 'var(--font-heading)',
+              fontWeight: 800,
+              fontSize: '1.28rem',
+              color: '#0D0C0A',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.1
+            }}>
+              GHAR RASOI
+            </div>
+            <div style={{
+              fontSize: '0.68rem',
+              fontWeight: 700,
+              color: '#C94B42',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase'
+            }}>
+              Chef on Call • Jaipur
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Navigation Links */}
+        <nav style={{
+          display: 'none',
+          alignItems: 'center',
+          gap: '24px'
+        }} className="desktop-nav">
+          <button 
+            onClick={() => handleNav('/')}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: '0.92rem',
+              fontWeight: isActive('/') ? 700 : 500,
+              color: isActive('/') ? '#C94B42' : '#171513',
+              cursor: 'pointer',
+              padding: '6px 2px'
+            }}
+          >
+            Home
+          </button>
+
+          {/* Services Dropdown */}
+          <div 
+            style={{ position: 'relative' }}
+            onMouseEnter={() => setServicesDropdownOpen(true)}
+            onMouseLeave={() => setServicesDropdownOpen(false)}
+          >
+            <button 
+              onClick={() => handleNav('/services')}
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '0.92rem',
+                fontWeight: currentRoute.startsWith('/services') ? 700 : 500,
+                color: currentRoute.startsWith('/services') ? '#C94B42' : '#171513',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                padding: '6px 2px'
+              }}
+            >
+              Services <ChevronDown size={14} />
+            </button>
+
+            {servicesDropdownOpen && (
+              <div style={{
+                position: 'absolute',
+                top: '100%',
+                left: 0,
+                width: '240px',
+                backgroundColor: '#FFFFFF',
+                border: '1px solid #E6E0D6',
+                borderRadius: '8px',
+                boxShadow: 'var(--shadow-card)',
+                padding: '8px 0',
+                zIndex: 950
+              }}>
+                <div 
+                  onClick={() => handleNav('/services/daily-cook')}
+                  style={{
+                    padding: '10px 16px',
+                    fontSize: '0.88rem',
+                    cursor: 'pointer',
+                    color: '#171513',
+                    borderBottom: '1px solid #F5F1E9'
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FAF4E6')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
+                >
+                  <div style={{ fontWeight: 600 }}>Daily Cook (Trial Visit)</div>
+                  <div style={{ fontSize: '0.76rem', color: '#77716A' }}>From ₹499 / visit</div>
+                </div>
+                <div 
+                  onClick={() => handleNav('/services/monthly-cook')}
+                  style={{
+                    padding: '10px 16px',
+                    fontSize: '0.88rem',
+                    cursor: 'pointer',
+                    color: '#171513',
+                    borderBottom: '1px solid #F5F1E9'
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FAF4E6')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
+                >
+                  <div style={{ fontWeight: 600 }}>Monthly Home Cook</div>
+                  <div style={{ fontSize: '0.76rem', color: '#77716A' }}>26 days plans from ₹7,999</div>
+                </div>
+                <div 
+                  onClick={() => handleNav('/services/party-chef')}
+                  style={{
+                    padding: '10px 16px',
+                    fontSize: '0.88rem',
+                    cursor: 'pointer',
+                    color: '#171513'
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#FAF4E6')}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#FFFFFF')}
+                >
+                  <div style={{ fontWeight: 600 }}>Party & Event Chef</div>
+                  <div style={{ fontSize: '0.76rem', color: '#77716A' }}>10–25 guests @ ₹3,500</div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <button 
+            onClick={() => handleNav('/pricing')}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: '0.92rem',
+              fontWeight: isActive('/pricing') ? 700 : 500,
+              color: isActive('/pricing') ? '#C94B42' : '#171513',
+              cursor: 'pointer',
+              padding: '6px 2px'
+            }}
+          >
+            Pricing
+          </button>
+
+          <button 
+            onClick={() => handleNav('/menu')}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: '0.92rem',
+              fontWeight: isActive('/menu') ? 700 : 500,
+              color: isActive('/menu') ? '#C94B42' : '#171513',
+              cursor: 'pointer',
+              padding: '6px 2px'
+            }}
+          >
+            Menu Showcase
+          </button>
+
+          <button 
+            onClick={() => handleNav('/chefs')}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: '0.92rem',
+              fontWeight: isActive('/chefs') ? 700 : 500,
+              color: isActive('/chefs') ? '#C94B42' : '#171513',
+              cursor: 'pointer',
+              padding: '6px 2px'
+            }}
+          >
+            Our Chefs
+          </button>
+
+          <button 
+            onClick={() => handleNav('/contact')}
+            style={{
+              background: 'none',
+              border: 'none',
+              fontSize: '0.92rem',
+              fontWeight: isActive('/contact') ? 700 : 500,
+              color: isActive('/contact') ? '#C94B42' : '#171513',
+              cursor: 'pointer',
+              padding: '6px 2px'
+            }}
+          >
+            Contact
+          </button>
+        </nav>
+
+        {/* Right Header Actions */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px'
+        }}>
+          {/* Jaipur indicator */}
+          <div style={{
+            display: 'none',
+            alignItems: 'center',
+            gap: '5px',
+            backgroundColor: '#FAF4E6',
+            border: '1px solid #E6E0D6',
+            padding: '5px 10px',
+            borderRadius: '6px',
+            fontSize: '0.78rem',
+            fontWeight: 600,
+            color: '#7A5B0B'
+          }} className="desktop-indicator">
+            <MapPin size={13} color="#C94B42" />
+            <span>Mansarovar, Jaipur</span>
+          </div>
+
+          {/* WhatsApp Direct CTA */}
+          <a
+            href="https://wa.me/916377100943?text=Namaste%20Ghar%20Rasoi,%20I%20am%20inquiring%20about%20booking%20a%20home%20cook%20in%20Jaipur."
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-sm btn-whatsapp"
+            style={{
+              display: 'none',
+              padding: '8px 12px'
+            }}
+            id="header-whatsapp-btn"
+          >
+            <MessageCircle size={15} />
+            <span>WhatsApp</span>
+          </a>
+
+          {/* Customer Account Button */}
+          <button
+            onClick={() => handleNav('/account')}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '38px',
+              height: '38px',
+              backgroundColor: '#FAF4E6',
+              border: '1px solid #E6E0D6',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              color: '#171513'
+            }}
+            title="Customer Dashboard"
+          >
+            <User size={18} />
+          </button>
+
+          {/* Primary CTA */}
+          <button 
+            onClick={() => handleNav('/book')}
+            className="btn btn-sm btn-primary"
+            style={{
+              boxShadow: 'none'
+            }}
+          >
+            Book a Chef
+          </button>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'none',
+              border: '1px solid #E6E0D6',
+              borderRadius: '6px',
+              padding: '6px',
+              cursor: 'pointer',
+              color: '#171513'
+            }}
+            className="mobile-hamburger"
+          >
+            {mobileMenuOpen ? <X size={22} /> : <MenuIcon size={22} />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Drawer Navigation */}
+      {mobileMenuOpen && (
+        <div style={{
+          backgroundColor: '#FFFFFF',
+          borderBottom: '2px solid #E6E0D6',
+          padding: '16px 20px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '12px'
+        }}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            fontSize: '0.82rem',
+            color: '#77716A',
+            paddingBottom: '8px',
+            borderBottom: '1px solid #F0ECE4'
+          }}>
+            <MapPin size={14} color="#C94B42" />
+            <span>Serving Mansarovar & Core Jaipur</span>
+          </div>
+
+          <button 
+            onClick={() => handleNav('/')}
+            style={{
+              textAlign: 'left',
+              padding: '8px 0',
+              background: 'none',
+              border: 'none',
+              fontWeight: 600,
+              fontSize: '1rem',
+              color: isActive('/') ? '#C94B42' : '#171513'
+            }}
+          >
+            Home
+          </button>
+
+          <div style={{ paddingLeft: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#77716A', textTransform: 'uppercase' }}>Services</span>
+            <button onClick={() => handleNav('/services/daily-cook')} style={{ textAlign: 'left', background: 'none', border: 'none', color: '#171513', fontSize: '0.92rem' }}>
+              • Daily Cook (Trial Visit ₹499)
+            </button>
+            <button onClick={() => handleNav('/services/monthly-cook')} style={{ textAlign: 'left', background: 'none', border: 'none', color: '#171513', fontSize: '0.92rem' }}>
+              • Monthly Cook (26 Days from ₹7,999)
+            </button>
+            <button onClick={() => handleNav('/services/party-chef')} style={{ textAlign: 'left', background: 'none', border: 'none', color: '#171513', fontSize: '0.92rem' }}>
+              • Party & Event Chef (₹3,500)
+            </button>
+          </div>
+
+          <button 
+            onClick={() => handleNav('/pricing')}
+            style={{
+              textAlign: 'left',
+              padding: '8px 0',
+              background: 'none',
+              border: 'none',
+              fontWeight: 600,
+              fontSize: '1rem',
+              color: isActive('/pricing') ? '#C94B42' : '#171513'
+            }}
+          >
+            Pricing & Packages
+          </button>
+
+          <button 
+            onClick={() => handleNav('/menu')}
+            style={{
+              textAlign: 'left',
+              padding: '8px 0',
+              background: 'none',
+              border: 'none',
+              fontWeight: 600,
+              fontSize: '1rem',
+              color: isActive('/menu') ? '#C94B42' : '#171513'
+            }}
+          >
+            Menu Showcase
+          </button>
+
+          <button 
+            onClick={() => handleNav('/chefs')}
+            style={{
+              textAlign: 'left',
+              padding: '8px 0',
+              background: 'none',
+              border: 'none',
+              fontWeight: 600,
+              fontSize: '1rem',
+              color: isActive('/chefs') ? '#C94B42' : '#171513'
+            }}
+          >
+            Our Chefs
+          </button>
+
+          <button 
+            onClick={() => handleNav('/contact')}
+            style={{
+              textAlign: 'left',
+              padding: '8px 0',
+              background: 'none',
+              border: 'none',
+              fontWeight: 600,
+              fontSize: '1rem',
+              color: isActive('/contact') ? '#C94B42' : '#171513'
+            }}
+          >
+            Contact & Support
+          </button>
+
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+            marginTop: '8px',
+            paddingTop: '12px',
+            borderTop: '1px solid #F0ECE4'
+          }}>
+            <a
+              href="https://wa.me/916377100943?text=Namaste%20Ghar%20Rasoi,%20I%20would%20like%20to%20inquire%20about%20a%20cook%20service%20in%20Jaipur."
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-whatsapp"
+              style={{ width: '100%' }}
+            >
+              <MessageCircle size={18} />
+              WhatsApp Us (+91 6377100943)
+            </a>
+
+            <button
+              onClick={() => handleNav('/book')}
+              className="btn btn-primary"
+              style={{ width: '100%' }}
+            >
+              Book a Chef Now
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Media query styling for header responsiveness */}
+      <style>{`
+        @media (min-width: 992px) {
+          .desktop-nav { display: flex !important; }
+          .desktop-indicator { display: flex !important; }
+          #header-whatsapp-btn { display: inline-flex !important; }
+          .mobile-hamburger { display: none !important; }
+        }
+      `}</style>
+    </header>
+  );
+};
